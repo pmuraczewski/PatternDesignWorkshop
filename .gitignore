@@ -1,3 +1,6 @@
+DesignPatterns/packages/*
+!DesignPatterns/packages/repositories.config
 DesignPatterns/DesignPatterns.v11.suo
 DesignPatterns/DesignPatterns/bin/
 DesignPatterns/DesignPatterns/obj/
+DesignPatterns/DesignPatterns/DesignPatterns.csproj.user
