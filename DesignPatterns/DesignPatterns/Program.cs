@@ -1,5 +1,6 @@
 ﻿using DesignPatterns.App_Start;
 using DesignPatterns.Services;
+using DesignPatterns.Strategies;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,19 @@ namespace DesignPatterns
     {
         public static void Main(string[] args)
         {
-            if (!args.Any())
+            var container = Bootstrapper.Initialise();
+            var validationService = container.Resolve<IValidationService>();
+
+            if(!validationService.IsArgumentValid(args))
             {
+                Console.ReadKey();
                 return;
             }
 
-            var container = Bootstrapper.Initialise();
-            var fileService = container.Resolve<IFileService>();
+            var context = new ResizePictureContext();
+            context.SetStrategy(new PrimitiveAverageStrategy());
+            context.ReducePicture(args[0], 3);
 
-            fileService.IsFileExists(args[0]);
             Console.ReadKey();
         }
     }
