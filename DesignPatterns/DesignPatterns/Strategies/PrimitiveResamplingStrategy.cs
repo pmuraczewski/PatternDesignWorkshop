@@ -14,11 +14,11 @@ namespace DesignPatterns.Strategies
     {
         public Bitmap ReduceImage(Bitmap image, int times)
         {
-            var width = image.Width;
-            var height = image.Height;
+            var originalWidth = image.Width;
+            var originalHeight = image.Height;
 
-            var newWidth = width/times;
-            var newHeight = height/times;
+            var newWidth = originalWidth / times;
+            var newHeight = originalHeight / times;
 
             var result = new Bitmap(newWidth, newHeight);
 
