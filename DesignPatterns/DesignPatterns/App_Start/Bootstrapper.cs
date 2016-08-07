@@ -10,6 +10,7 @@ namespace DesignPatterns.App_Start
             var container = new UnityContainer();
             container.RegisterType<IFileService, FileService>();
             container.RegisterType<IValidationService, ValidationService>();
+            container.RegisterType<IResizePictureService, ResizePictureService>();
 
             return container;
         }

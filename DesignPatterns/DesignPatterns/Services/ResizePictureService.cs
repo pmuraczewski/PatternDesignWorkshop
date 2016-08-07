@@ -8,15 +8,19 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.Services
 {
-    public class ResizePictureContext
+    public class ResizePictureService : IResizePictureService
     {
         private IResizeStrategy resizeStrategy;
         private IFileService fileService;
 
-        public void SetStrategy(IResizeStrategy resizeStrategy, IFileService fileService)
+        public ResizePictureService(IFileService fileService)
+        {
+            this.fileService = fileService;
+        }
+
+        public void SetStrategy(IResizeStrategy resizeStrategy)
         {
             this.resizeStrategy = resizeStrategy;
-            this.fileService = fileService;
         }
 
         public void ReducePicture(string path, int times, ImageFormat format)

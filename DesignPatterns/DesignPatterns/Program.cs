@@ -17,7 +17,7 @@ namespace DesignPatterns
         {
             var container = Bootstrapper.Initialise();
             var validationService = container.Resolve<IValidationService>();
-            var fileService = container.Resolve<IFileService>();
+            var resizePictureService = container.Resolve<IResizePictureService>();
 
             if(!validationService.IsArgumentValid(args))
             {
@@ -25,10 +25,9 @@ namespace DesignPatterns
                 return;
             }
 
-            var context = new ResizePictureContext();
-////            context.SetStrategy(new PrimitiveResamplingStrategy(), fileService);
-            context.SetStrategy(new AverageDownsamplingStrategy(), fileService);
-            context.ReducePicture(args[0], 4, ImageFormat.Png);
+            resizePictureService.SetStrategy(new PrimitiveResamplingStrategy());
+            ////resizePictureService.SetStrategy(new AverageDownsamplingStrategy());
+            resizePictureService.ReducePicture(args[0], 40, ImageFormat.Png);
 
             Console.ReadKey();
         }
