@@ -56,7 +56,8 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ResizePictureContext.cs" />
+    <Compile Include="Services\IResizePictureService.cs" />
+    <Compile Include="Services\ResizePictureService.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\IFileService.cs" />
     <Compile Include="Strategies\AverageDownsamplingStrategy.cs" />

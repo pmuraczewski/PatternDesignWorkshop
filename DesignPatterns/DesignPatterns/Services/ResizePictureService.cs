@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.Services
 {
-    public class ResizePictureContext
+    public class ResizePictureService : IResizePictureService
     {
         private IResizeStrategy resizeStrategy;
         private IFileService fileService;
