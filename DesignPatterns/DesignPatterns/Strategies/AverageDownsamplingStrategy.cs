@@ -12,11 +12,11 @@ namespace DesignPatterns.Strategies
     {
         public Bitmap ReduceImage(Bitmap image, int times)
         {
-            var width = image.Width;
-            var height = image.Height;
+            var originalWidth = image.Width;
+            var originalHeight = image.Height;
 
-            var newWidth = width / times;
-            var newHeight = height / times;
+            var newWidth = originalWidth / times;
+            var newHeight = originalHeight / times;
 
             var result = new Bitmap(newWidth, newHeight);
 
@@ -27,7 +27,7 @@ namespace DesignPatterns.Strategies
                     var horizontalIndex = i * times;
                     var verticalIndex = j * times;
 
-                    var pixel = AverageNeighboringPixels(image, horizontalIndex, newWidth, verticalIndex, newHeight, times);
+                    var pixel = AverageNeighboringPixels(image, horizontalIndex, verticalIndex, times);
 
                     result.SetPixel(i, j, pixel);
                 }
@@ -36,10 +36,11 @@ namespace DesignPatterns.Strategies
             return result;
         }
 
-        private Color AverageNeighboringPixels(Bitmap image, int startHorizontalIndex, int horizontalMax, int startVerticalIndex, int verticalMax, int times)
+        private Color AverageNeighboringPixels(Bitmap image, int startHorizontalIndex, int startVerticalIndex, int times)
         {
             var endHorizontalIndex = startHorizontalIndex + times;
             var endVerticalIndex = startVerticalIndex + times;
+
             var Avalues = new List<byte>();
             var Rvalues = new List<byte>();
             var Gvalues = new List<byte>();

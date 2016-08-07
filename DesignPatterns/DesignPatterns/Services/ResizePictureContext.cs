@@ -13,10 +13,10 @@ namespace DesignPatterns.Services
         private IResizeStrategy resizeStrategy;
         private IFileService fileService;
 
-        public void SetStrategy(IResizeStrategy resizeStrategy, IFileService fileService)
+        public void SetStrategy(IResizeStrategy resizeStrategy)
         {
             this.resizeStrategy = resizeStrategy;
-            this.fileService = fileService;
+            this.fileService = new FileService();
         }
 
         public void ReducePicture(string path, int times, ImageFormat format)
