@@ -1,4 +1,4 @@
-﻿using DesignPatterns.Strategies;
+﻿using DesignPatterns.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
@@ -10,8 +10,6 @@ namespace DesignPatterns.Services
 {
     public interface IResizePictureService
     {
-        void SetStrategy(IResizeStrategy resizeStrategy);
-
-        void ReducePicture(string path, int times, ImageFormat format);
+        void ReducePicture(string path, int times, ImageFormat format, InterpolationType type);
     }
 }

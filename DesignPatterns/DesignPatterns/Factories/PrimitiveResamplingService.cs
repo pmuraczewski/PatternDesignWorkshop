@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.Strategies
+namespace DesignPatterns.Factories
 {
-    public class PrimitiveResamplingStrategy : IResizeStrategy
+    public class PrimitiveResamplingService : IResizeImageService
     {
         public Bitmap ReduceImage(Bitmap image, int times)
         {

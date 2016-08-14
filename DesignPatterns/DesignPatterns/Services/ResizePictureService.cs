@@ -1,4 +1,5 @@
-﻿using DesignPatterns.Strategies;
+﻿using DesignPatterns.Factories;
+using DesignPatterns.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
@@ -10,26 +11,21 @@ namespace DesignPatterns.Services
 {
     public class ResizePictureService : IResizePictureService
     {
-        private IResizeStrategy resizeStrategy;
         private IFileService fileService;
+        private IResizedImageFactory imageFactory;
 
-        public ResizePictureService(IFileService fileService)
+        public ResizePictureService(IFileService fileService, IResizedImageFactory imageFactory)
         {
             this.fileService = fileService;
+            this.imageFactory = imageFactory;
         }
 
-        public void SetStrategy(IResizeStrategy resizeStrategy)
+        public void ReducePicture(string path, int times, ImageFormat format, InterpolationType type)
         {
-            this.resizeStrategy = resizeStrategy;
-        }
+             var reducedImage = imageFactory.CreateReducedImage(type, path, times);
+             var reducedImagePath = this.GetReducedImagePath(path, times, format);
 
-        public void ReducePicture(string path, int times, ImageFormat format)
-        {
-            var image = fileService.GetImageAsBitmap(path);
-            var reducedImage = this.resizeStrategy.ReduceImage(image, times);
-            var reducedImagePath = this.GetReducedImagePath(path, times, format);
-
-            fileService.SaveBitmapToFile(reducedImagePath, reducedImage, format);
+             fileService.SaveBitmapToFile(reducedImagePath, reducedImage, format);
         }
 
         private string GetReducedImagePath(string path, int times, ImageFormat format)

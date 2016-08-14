@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.Strategies
+namespace DesignPatterns.Factories
 {
-    public class BicubicDownsamplingStrategy : IResizeStrategy
+    public class BicubicDownsamplingService : IResizeImageService
     {
         public Bitmap ReduceImage(Bitmap image, int times)
         {

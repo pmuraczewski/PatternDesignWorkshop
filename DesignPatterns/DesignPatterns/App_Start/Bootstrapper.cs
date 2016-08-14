@@ -1,4 +1,5 @@
-﻿using DesignPatterns.Services;
+﻿using DesignPatterns.Factories;
+using DesignPatterns.Services;
 using Microsoft.Practices.Unity;
 
 namespace DesignPatterns.App_Start
@@ -11,6 +12,7 @@ namespace DesignPatterns.App_Start
             container.RegisterType<IFileService, FileService>();
             container.RegisterType<IValidationService, ValidationService>();
             container.RegisterType<IResizePictureService, ResizePictureService>();
+            container.RegisterType<IResizedImageFactory, ResizedImageFactory>();
 
             return container;
         }
