@@ -16,11 +16,12 @@ namespace DesignPatterns
         {
             var resizePictureService = new ResizePictureService();
 
-            IResizeStrategy strategy = new PrimitiveResamplingStrategy();
+            ////IResizeStrategy strategy = new PrimitiveResamplingStrategy();
             ////IResizeStrategy strategy = new AverageDownsamplingStrategy();
+            IResizeStrategy strategy = new BicubicDownsamplingStrategy();
 
             resizePictureService.SetStrategy(strategy);
-            resizePictureService.ReducePicture(@"D:\Projekty\PatternDesignWorkshop\DesignPatterns\DesignPatterns\bin\Debug\obrazek.jpg", 4, ImageFormat.Png);
+            resizePictureService.ReducePicture(@"D:\Projekty\PatternDesignWorkshop\DesignPatterns\DesignPatterns\bin\Debug\obrazek.jpg", 30, ImageFormat.Png);
 
             Console.ReadKey();
         }
