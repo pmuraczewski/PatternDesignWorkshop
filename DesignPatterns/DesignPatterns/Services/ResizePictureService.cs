@@ -1,31 +1,44 @@
-﻿using DesignPatterns.Factories;
-using DesignPatterns.Helpers;
-using System;
+﻿using DesignPatterns.ChainOfResponsibility;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesignPatterns.Services
 {
     public class ResizePictureService : IResizePictureService
     {
         private IFileService fileService;
-        private IResizedImageFactory imageFactory;
 
-        public ResizePictureService(IFileService fileService, IResizedImageFactory imageFactory)
+        public ResizePictureService(IFileService fileService)
         {
             this.fileService = fileService;
-            this.imageFactory = imageFactory;
         }
 
-        public void ReducePicture(string path, int times, ImageFormat format, InterpolationType type)
+        public void ReducePicture(IList<string> paths, int times)
         {
-             var reducedImage = imageFactory.CreateReducedImage(type, path, times);
-             var reducedImagePath = this.GetReducedImagePath(path, times, format);
+            var resizer = InitializeChainOfResponsibility();
 
-             fileService.SaveBitmapToFile(reducedImagePath, reducedImage, format);
+            foreach (var path in paths)
+            {
+                var originalImage = this.fileService.GetImageAsBitmap(path);
+                var imageFormat = fileService.GetImageFormatFromPath(path);
+
+                var reducedImage = resizer.ProcessImage(originalImage, imageFormat, times);
+
+                var reducedImagePath = this.GetReducedImagePath(path, times, imageFormat);
+                fileService.SaveBitmapToFile(reducedImagePath, reducedImage, imageFormat);
+            }
+        }
+
+        private ImageResizer InitializeChainOfResponsibility()
+        {
+            ImageResizer classicResizer = new ClassicResizer();
+            ImageResizer smallBitmapResizer = new SmallBitmapResizer();
+            ImageResizer bigImageResizer = new BigImageResizer();
+
+            classicResizer.SetSuccessor(smallBitmapResizer);
+            smallBitmapResizer.SetSuccessor(bigImageResizer);
+
+            return classicResizer;
         }
 
         private string GetReducedImagePath(string path, int times, ImageFormat format)

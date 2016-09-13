@@ -1,16 +1,28 @@
-﻿using DesignPatterns.Services;
-using System;
+﻿using DesignPatterns.Helpers;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DesignPatterns.Factories
+namespace DesignPatterns.ChainOfResponsibility
 {
-    public class AverageDownsamplingService : IResizeImageService
+    public class SmallBitmapResizer : ImageResizer
     {
-        public Bitmap ReduceImage(Bitmap image, int times)
+        public override Bitmap ProcessImage(Bitmap image, ImageFormat format, int times)
+        {
+            if (image.GetSize() <= 2000)
+            {
+                return ReduceImage(image, format, times);
+            }
+            else if(successor != null)
+            {
+                return successor.ProcessImage(image, format, times);
+            }
+
+            return null;
+        }
+
+        private Bitmap ReduceImage(Bitmap image, ImageFormat format, int times)
         {
             var originalWidth = image.Width;
             var originalHeight = image.Height;

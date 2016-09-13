@@ -1,18 +1,26 @@
-﻿using DesignPatterns.Services;
-using System;
-using System.Collections.Generic;
+﻿using DesignPatterns.Helpers;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DesignPatterns.Factories
+namespace DesignPatterns.ChainOfResponsibility
 {
-    public class PrimitiveResamplingService : IResizeImageService
+    public class BigImageResizer : ImageResizer
     {
-        public Bitmap ReduceImage(Bitmap image, int times)
+        public override Bitmap ProcessImage(Bitmap image, ImageFormat format, int times)
+        {
+            if (image.GetSize() > 2000000 && image.GetSize() < 100000000)
+            {
+                return ReduceImage(image, format, times);
+            }
+            else if (successor != null)
+            {
+                return successor.ProcessImage(image, format, times);
+            }
+
+            return null;
+        }
+
+        private Bitmap ReduceImage(Bitmap image, ImageFormat format, int times)
         {
             var originalWidth = image.Width;
             var originalHeight = image.Height;

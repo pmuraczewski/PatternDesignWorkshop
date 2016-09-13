@@ -55,21 +55,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Bootstrapper.cs" />
-    <Compile Include="Factories\IResizedImageFactory.cs" />
-    <Compile Include="Factories\ResizedImageFactory.cs" />
+    <Compile Include="ChainOfResponsibility\ClassicResizer.cs" />
+    <Compile Include="ChainOfResponsibility\BigImageResizer.cs" />
+    <Compile Include="ChainOfResponsibility\SmallBitmapResizer.cs" />
+    <Compile Include="ChainOfResponsibility\ImageResizer.cs" />
+    <Compile Include="Helpers\BitmapExtensions.cs" />
     <Compile Include="Helpers\InterpolationType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IResizePictureService.cs" />
     <Compile Include="Services\ResizePictureService.cs" />
-    <Compile Include="Services\ValidationService.cs" />
-    <Compile Include="Services\IValidationService.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\IFileService.cs" />
-    <Compile Include="Factories\AverageDownsamplingService.cs" />
-    <Compile Include="Factories\BicubicDownsamplingService.cs" />
-    <Compile Include="Factories\IResizeImageService.cs" />
-    <Compile Include="Factories\PrimitiveResamplingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

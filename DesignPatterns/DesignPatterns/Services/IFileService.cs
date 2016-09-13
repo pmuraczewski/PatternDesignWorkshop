@@ -21,5 +21,7 @@ namespace DesignPatterns.Services
         Bitmap GetImageAsBitmap(string path);
 
         void SaveBitmapToFile(string path, Bitmap image, ImageFormat imageFormat);
+
+        ImageFormat GetImageFormatFromPath(string path);
     }
 }
