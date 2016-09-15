@@ -1,10 +1,9 @@
 ﻿using DesignPatterns.App_Start;
-using DesignPatterns.Helpers;
+using DesignPatterns.Builders;
+using DesignPatterns.Resizers;
 using DesignPatterns.Services;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
 
 namespace DesignPatterns
 {
@@ -12,16 +11,15 @@ namespace DesignPatterns
     {
         public static void Main(string[] args)
         {
-            var picturesPath = new List<string>
-            {
-                @"D:\Projekty\PatternDesignWorkshop\DesignPatterns\DesignPatterns\bin\Debug\obrazek.jpg",
-                @"D:\Projekty\PatternDesignWorkshop\DesignPatterns\DesignPatterns\bin\Debug\obrazek3.bmp"
-            };
-
             var container = Bootstrapper.Initialise();
-            var resizePictureService = container.Resolve<IResizePictureService>();
+            var fileService = container.Resolve<IFileService>();
+            var resizedImageCreator = container.Resolve<IResizedImageCreator>();
 
-            resizePictureService.ReducePicture(picturesPath, 5);
+            var pictureBuilder = container.Resolve<IPictureBuilder>("large");
+            
+            var resizedImage = resizedImageCreator.Construct(pictureBuilder);
+
+            fileService.SaveBitmapToFile(resizedImage.fileName, resizedImage.content, resizedImage.imageFormat);
 
             Console.ReadKey();
         }

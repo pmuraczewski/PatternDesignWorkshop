@@ -1,28 +1,29 @@
-﻿using DesignPatterns.Helpers;
+﻿using DesignPatterns.Services;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Linq;
 
-namespace DesignPatterns.ChainOfResponsibility
+namespace DesignPatterns.Resizers
 {
-    public class SmallBitmapResizer : ImageResizer
+    public class SmallImageResizer : ISmallImageResizer
     {
-        public override Bitmap ProcessImage(Bitmap image, ImageFormat format, int times)
-        {
-            if (image.GetSize() <= 2000)
-            {
-                return ReduceImage(image, format, times);
-            }
-            else if(successor != null)
-            {
-                return successor.ProcessImage(image, format, times);
-            }
+        private IFileService fileService;
 
-            return null;
+        public SmallImageResizer(IFileService fileService)
+        {
+            this.fileService = fileService;
         }
 
-        private Bitmap ReduceImage(Bitmap image, ImageFormat format, int times)
+        public Bitmap ResizeImage()
+        {
+            var filePath = "obrazek3.jpg";
+            var times = 2;
+            var image = this.fileService.GetImageAsBitmap(filePath);
+
+            return ReduceImage(image, times);
+        }
+
+        private Bitmap ReduceImage(Bitmap image, int times)
         {
             var originalWidth = image.Width;
             var originalHeight = image.Height;

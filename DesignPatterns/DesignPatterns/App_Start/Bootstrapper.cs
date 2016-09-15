@@ -1,4 +1,6 @@
-﻿using DesignPatterns.Services;
+﻿using DesignPatterns.Builders;
+using DesignPatterns.Resizers;
+using DesignPatterns.Services;
 using Microsoft.Practices.Unity;
 
 namespace DesignPatterns.App_Start
@@ -9,7 +11,15 @@ namespace DesignPatterns.App_Start
         {
             var container = new UnityContainer();
             container.RegisterType<IFileService, FileService>();
-            container.RegisterType<IResizePictureService, ResizePictureService>();
+            container.RegisterType<IResizedImageCreator, ResizedImageCreator>();
+
+            container.RegisterType<ISmallImageResizer, SmallImageResizer>();
+            container.RegisterType<IMediumImageResizer, MediumImageResizer>();
+            container.RegisterType<ILargeImageResizer, LargeImageResizer>();
+
+            container.RegisterType<IPictureBuilder, SmallPictureBuilder>("small");
+            container.RegisterType<IPictureBuilder, MediumPictureBuilder>("medium");
+            container.RegisterType<IPictureBuilder, LargePictureBuilder>("large");
 
             return container;
         }

@@ -71,7 +71,9 @@ namespace DesignPatterns.Services
 
         public void SaveBitmapToFile(string path, Bitmap image, ImageFormat imageFormat)
         {
-            image.Save(path, imageFormat);
+            var pathWithExtension = string.Format("{0}.{1}", path, imageFormat);
+
+            image.Save(pathWithExtension, imageFormat);
         }
 
         public ImageFormat GetImageFormatFromPath(string path)
