@@ -60,7 +60,6 @@
     <Compile Include="ChainOfResponsibility\SmallBitmapResizer.cs" />
     <Compile Include="ChainOfResponsibility\ImageResizer.cs" />
     <Compile Include="Helpers\BitmapExtensions.cs" />
-    <Compile Include="Helpers\InterpolationType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IResizePictureService.cs" />
