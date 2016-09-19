@@ -54,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\Bootstrapper.cs" />
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="ChainOfResponsibility\ClassicResizer.cs" />
     <Compile Include="ChainOfResponsibility\BigImageResizer.cs" />
     <Compile Include="ChainOfResponsibility\SmallBitmapResizer.cs" />
