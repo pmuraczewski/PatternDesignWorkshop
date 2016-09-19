@@ -1,5 +1,4 @@
-﻿using DesignPatterns.App_Start;
-using DesignPatterns.Builders;
+﻿using DesignPatterns.Builders;
 using DesignPatterns.Resizers;
 using DesignPatterns.Services;
 using Microsoft.Practices.Unity;
