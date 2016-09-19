@@ -1,5 +1,4 @@
-﻿using DesignPatterns.App_Start;
-using DesignPatterns.Factories;
+﻿using DesignPatterns.Factories;
 using DesignPatterns.Helpers;
 using DesignPatterns.Services;
 using Microsoft.Practices.Unity;
