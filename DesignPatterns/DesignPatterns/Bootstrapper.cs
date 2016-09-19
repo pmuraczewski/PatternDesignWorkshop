@@ -1,7 +1,7 @@
 ﻿using DesignPatterns.Services;
 using Microsoft.Practices.Unity;
 
-namespace DesignPatterns.App_Start
+namespace DesignPatterns
 {
     public static class Bootstrapper
     {

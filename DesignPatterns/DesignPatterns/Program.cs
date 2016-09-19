@@ -1,5 +1,4 @@
-﻿using DesignPatterns.App_Start;
-using DesignPatterns.Services;
+﻿using DesignPatterns.Services;
 using DesignPatterns.Strategies;
 using Microsoft.Practices.Unity;
 using System;
@@ -25,9 +24,11 @@ namespace DesignPatterns
                 return;
             }
 
-////            resizePictureService.SetStrategy(new PrimitiveResamplingStrategy());
-            resizePictureService.SetStrategy(new BicubicDownsamplingStrategy());
-            ////resizePictureService.SetStrategy(new AverageDownsamplingStrategy());
+            ////IResizeStrategy strategy = new PrimitiveResamplingStrategy();
+            ////IResizeStrategy strategy = new AverageDownsamplingStrategy();
+            IResizeStrategy strategy = new BicubicDownsamplingStrategy();
+
+            resizePictureService.SetStrategy(strategy);
             resizePictureService.ReducePicture(args[0], 40, ImageFormat.Png);
 
             Console.ReadKey();
