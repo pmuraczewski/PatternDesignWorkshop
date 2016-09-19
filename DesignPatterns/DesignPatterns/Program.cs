@@ -21,7 +21,7 @@ namespace DesignPatterns
             var container = Bootstrapper.Initialise();
             var resizePictureService = container.Resolve<IResizePictureService>();
 
-            resizePictureService.ReducePicture(picturesPath, 5);
+            resizePictureService.ReducePictures(picturesPath, 5);
 
             Console.ReadKey();
         }

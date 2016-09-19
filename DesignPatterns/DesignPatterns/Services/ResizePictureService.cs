@@ -13,7 +13,7 @@ namespace DesignPatterns.Services
             this.fileService = fileService;
         }
 
-        public void ReducePicture(IList<string> paths, int times)
+        public void ReducePictures(IList<string> paths, int times)
         {
             var resizer = InitializeChainOfResponsibility();
 

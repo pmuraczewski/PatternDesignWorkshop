@@ -4,6 +4,6 @@ namespace DesignPatterns.Services
 {
     public interface IResizePictureService
     {
-        void ReducePicture(IList<string> paths, int times);
+        void ReducePictures(IList<string> paths, int times);
     }
 }
