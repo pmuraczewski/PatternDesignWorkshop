@@ -1,5 +1,6 @@
 ﻿using DesignPatterns.Factories;
 using DesignPatterns.Helpers;
+using DesignPatterns.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
@@ -14,26 +15,30 @@ namespace DesignPatterns.Services
         private IFileService fileService;
         private IResizedImageFactory imageFactory;
 
-        public ResizePictureService(IFileService fileService, IResizedImageFactory imageFactory)
+        public ResizePictureService(IFileService fileService)
         {
             this.fileService = fileService;
-            this.imageFactory = imageFactory;
         }
 
         public void ReducePicture(string path, int times, ImageFormat format, InterpolationType type)
         {
-             var reducedImage = imageFactory.CreateReducedImage(type, path, times);
-             var reducedImagePath = this.GetReducedImagePath(path, times, format);
+            switch (type)
+            {
+                case InterpolationType.Primitive:
+                    this.imageFactory = new ResizedJpegFactory(this.fileService);
+                    break;
+                case InterpolationType.Average:
+                    this.imageFactory = new ResizedPngFactory(this.fileService);
+                    break;
+                case InterpolationType.Bicubic:
+                    this.imageFactory = new ResizedBmpFactory(this.fileService);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
 
-             fileService.SaveBitmapToFile(reducedImagePath, reducedImage, format);
-        }
-
-        private string GetReducedImagePath(string path, int times, ImageFormat format)
-        {
-            var originalFileName = fileService.GetFileNameWithoutExtension(path);
-            var originalFileDirectory = fileService.GetFolderPath(path);
-
-            return string.Format("{0}{1}-{2}-times.{3}", originalFileDirectory, originalFileName, times, format.ToString().ToLower());
+            IResizedImage resizedImage = imageFactory.CreateResizedImage();
+            resizedImage.SaveResizedImageToFile(path, times, format);
         }
     }
 }

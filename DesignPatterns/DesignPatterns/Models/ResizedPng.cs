@@ -2,15 +2,33 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatterns.Factories
+namespace DesignPatterns.Models
 {
-    public class AverageDownsamplingService : IResizeImageService
+    public class ResizedPng : IResizedImage
     {
-        public Bitmap ReduceImage(Bitmap image, int times)
+        private IFileService fileService;
+
+        public ResizedPng(IFileService fileService)
+        {
+            this.fileService = fileService;
+        }
+
+        public void SaveResizedImageToFile(string path, int times, ImageFormat imageFormat)
+        {
+            var originalImage = this.fileService.GetImageAsBitmap(path);
+            var reducedImage = ReduceImage(originalImage, times);
+            var reducedImagePath = GetReducedImagePath(path, times, imageFormat);
+
+            this.fileService.SaveBitmapToFile(reducedImagePath, reducedImage, imageFormat);
+        }
+
+        private Bitmap ReduceImage(Bitmap image, int times)
         {
             var originalWidth = image.Width;
             var originalHeight = image.Height;
@@ -67,6 +85,14 @@ namespace DesignPatterns.Factories
             var newPixel = Color.FromArgb(Aaverage, Raverage, Gaverage, Baverage);
 
             return newPixel;
+        }
+
+        private string GetReducedImagePath(string path, int times, ImageFormat format)
+        {
+            var originalFileName = fileService.GetFileNameWithoutExtension(path);
+            var originalFileDirectory = fileService.GetFolderPath(path);
+
+            return string.Format("{0}{1}-{2}-times.{3}", originalFileDirectory, originalFileName, times, format.ToString().ToLower());
         }
     }
 }

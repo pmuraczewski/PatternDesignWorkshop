@@ -12,7 +12,6 @@ namespace DesignPatterns
             container.RegisterType<IFileService, FileService>();
             container.RegisterType<IValidationService, ValidationService>();
             container.RegisterType<IResizePictureService, ResizePictureService>();
-            container.RegisterType<IResizedImageFactory, ResizedImageFactory>();
 
             return container;
         }
