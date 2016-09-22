@@ -6,7 +6,7 @@ namespace DesignPatterns
 {
     public static class Bootstrapper
     {
-        public static IUnityContainer Initialise()
+        public static IUnityContainer Initialize()
         {
             var container = new UnityContainer();
             container.RegisterType<IFileService, FileService>();
