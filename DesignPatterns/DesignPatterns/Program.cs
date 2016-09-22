@@ -15,7 +15,7 @@ namespace DesignPatterns
     {
         public static void Main(string[] args)
         {
-            var container = Bootstrapper.Initialise();
+            var container = Bootstrapper.Initialize();
             var validationService = container.Resolve<IValidationService>();
             var resizePictureService = container.Resolve<IResizePictureService>();
 
